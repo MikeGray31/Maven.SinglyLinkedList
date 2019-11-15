@@ -1,7 +1,5 @@
 package com.zipcodewilmington.singlylinkedlist;
 
-import java.util.LinkedList;
-
 /**
  * Created by leon on 1/10/18.
  */
@@ -22,7 +20,7 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
 
     // Node class --------------------------
 
-    private static class Node<E> implements Cloneable{
+    private static class Node<E>{
         E data;
         SinglyLinkedList.Node<E> next;
         SinglyLinkedList.Node<E> prev;
@@ -36,7 +34,7 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
 
     // methods -----------------------------
 
-    void add(E newData){
+    public void add(E newData){
 
         if(currentSize == 0){
             Node<E> node = new Node<E>(null,newData,null);
@@ -57,8 +55,21 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
         for(int i = 0; i < index; i++){
             currentNode = currentNode.next;
         }
-        currentNode.next.prev = currentNode.prev;
-        currentNode.prev.next = currentNode.next;
+        if(currentNode.equals(this.firstNode)){
+            currentNode.next.prev = null;
+            this.firstNode  = currentNode.next;
+            currentSize--;
+        }
+        else if(currentNode.equals(this.lastNode)){
+            currentNode.prev.next = null;
+            this.lastNode = currentNode.prev;
+            currentSize--;
+        }
+        else {
+            currentNode.next.prev = currentNode.prev;
+            currentNode.prev.next = currentNode.next;
+            currentSize--;
+        }
     }
 
     boolean contains(E dataToFind){
@@ -96,12 +107,10 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
     }
 
     E get(int index){
-        SinglyLinkedList.Node getThis = this.firstNode;
-        for(int i = 0; i < index; i++){
-            getThis = getThis.next;
-        }
-        return (E) getThis.data;
+        return (E) getNode(index).data;
     }
+
+
 
     SinglyLinkedList<E> copy(){
 
@@ -115,31 +124,36 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
         return newClone;
     }
 
-    private void sort(){
-        Node<E> currentNode = this.firstNode;
-        if (){
+    private Node<E> getNode(int index){
 
+        SinglyLinkedList.Node getThis = this.firstNode;
+        for(int i = 0; i < index; i++){
+            getThis = getThis.next;
         }
+        return getThis;
     }
 
     private <E extends Comparable<E>> void swap( int i, int j) {
+
         if (i != j) {
-
-
+            this.add(this.getNode(i).data);
+            this.getNode(i).data = this.getNode(j).data;
+            this.getNode(j).data = this.lastNode.data;
+            this.remove(currentSize - 1);
         }
     }
 
-    public <E extends Comparable<E>> void selectionSort() {
+    public <E extends Comparable<E>> void sort() {
+
         for (int i = 0; i < this.size() - 1; i++) {
-            // find index of smallest element
             int smallest = i;
+
             for (int j = i + 1; j < this.size(); j++) {
                 if (this.get(j).compareTo(this.get(smallest)) <= 0) {
                     smallest = j;
                 }
             }
-
-            swap(i, smallest);  // swap smallest to front
+            swap(i, smallest);
         }
     }
 }

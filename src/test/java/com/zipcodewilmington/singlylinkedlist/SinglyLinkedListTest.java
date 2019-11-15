@@ -44,6 +44,15 @@ public class SinglyLinkedListTest {
 
 
     @Test
+    public void removeTest(){
+
+        sLL.remove(2);
+        Assert.assertEquals(2, sLL.size());
+        Assert.assertFalse(sLL.contains(3));
+    }
+
+
+    @Test
     public void findTest(){
         Assert.assertEquals(0, sLL.find(1));
         Assert.assertEquals(1, sLL.find(2));
@@ -68,9 +77,26 @@ public class SinglyLinkedListTest {
         Assert.assertFalse(sLL.contains(4));
         Assert.assertTrue(sLL2.contains(4));
 
-        sLL2.remove(1);
-        Assert.assertTrue(sLL.contains(2));
-        Assert.assertFalse(sLL2.contains(2));
+        sLL2.remove(3);
+        Assert.assertFalse(sLL2.contains(4));
+    }
+
+    @Test
+    public void sortTest(){
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
+        list.add("Hi there");
+        list.add("Always");
+        list.add("Mike");
+        list.add("Banana");
+        list.add("Apple");
+        list.add("Zebra");
+        list.sort();
+
+        String[] expected = {"Always", "Apple", "Banana", "Hi there", "Mike", "Zebra"};
+
+        for(int i = 0; i < list.size(); i++){
+            Assert.assertEquals(expected[i], list.get(i));
+        }
 
     }
 }
