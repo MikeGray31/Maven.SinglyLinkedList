@@ -33,7 +33,7 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
 
     // Methods -----------------------------
 
-    public void add(E newData){
+    void add(E newData){
 
         if(currentSize == 0){
             Node<E> node = new Node<E>(null,newData,null);
