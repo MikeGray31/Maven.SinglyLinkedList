@@ -5,14 +5,13 @@ package com.zipcodewilmington.singlylinkedlist;
  */
 public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
 
-    // fields ------------------------------
+    // Fields ------------------------------
 
     private int currentSize;
     private Node<E> lastNode;
     private Node<E> firstNode;
 
-
-    // constructor -------------------------
+    // Constructor -------------------------
 
     SinglyLinkedList(){
         currentSize = 0;
@@ -32,7 +31,7 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
         }
     }
 
-    // methods -----------------------------
+    // Methods -----------------------------
 
     public void add(E newData){
 
@@ -110,8 +109,6 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
         return (E) getNode(index).data;
     }
 
-
-
     SinglyLinkedList<E> copy(){
 
         SinglyLinkedList<E> newClone = new SinglyLinkedList<>();
@@ -143,7 +140,7 @@ public class SinglyLinkedList<E extends Comparable<E>>  implements Cloneable{
         }
     }
 
-    public <E extends Comparable<E>> void sort() {
+    <E extends Comparable<E>> void sort() {
 
         for (int i = 0; i < this.size() - 1; i++) {
             int smallest = i;
